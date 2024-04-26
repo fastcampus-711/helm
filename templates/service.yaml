@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "springboot-docker.fullname" . }}
+  name: {{ template "springboot.fullname" . }}
   labels:
-    app: {{ template "springboot-docker.name" . }}
-    chart: {{ template "springboot-docker.chart" . }}
+    app: {{ template "springboot.name" . }}
+    chart: {{ template "springboot.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "springboot-docker.name" . }}
+    app: {{ template "springboot.name" . }}
     release: {{ .Release.Name }}
