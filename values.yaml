@@ -1,34 +1,24 @@
-appName: community
-domain: ha-ving.store
-
-replicaCount: 3
+replicaCount: 1
 
 image:
-  repositoryHost: harbor.ha-ving.store
-  imageName: community
-  tag: "latest"
+  repository: harbor.ha-ving.store/community
+  tag: latest
   pullPolicy: IfNotPresent
-imagePullSecrets: []
 
-env:
-  - name: JAVA_OPTS
-    value: "-Dspring.profiles.active=prod"
+containerPort: 80
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 ingress:
   enabled: true
-  className: "nginx"
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "ha-ving.store-issuer"
+  path: /    
   hosts:
-    - host: community.ha-ving.store
-      paths:
-        - path: /
-          pathType: Prefix
+    - community.ha-ving.store
   tls:
     - secretName: community-ingress
       hosts:
