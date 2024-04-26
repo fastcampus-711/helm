@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: harbor.ha-ving.store/community
+  repository: harbor.ha-ving.store/docker/711-community
   tag: latest
   pullPolicy: IfNotPresent
 
