@@ -1,10 +1,10 @@
-appName: 711-community
+appName: community
 domain: ha-ving.store
 
 replicaCount: 3
 image:
   repositoryHost: harbor.ha-ving.store
-  imageName: {{ .Values.appName }}
+  imageName: community
   tag: "latest"
   pullPolicy: IfNotPresent
 
@@ -18,16 +18,16 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: "nginx"
   hosts:
-    - host: {{ .Values.appName }}.ha-ving.store
+    - host: community.ha-ving.store
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: {{ .Values.appName }}-ingress
+    - secretName: community-ingress
       hosts:
-        - {{ .Values.appName }}.ha-ving.store
+        - community.ha-ving.store
 
-resources: # 리소스 제한 및 요청
+resources:
   limits:
     cpu: 500m
     memory: 512Mi
