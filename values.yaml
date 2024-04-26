@@ -3,7 +3,7 @@ domain: ha-ving.store
 
 replicaCount: 3
 image:
-  repositoryHost: harbor.{{ .Values.domain }}
+  repositoryHost: harbor.ha-ving.store
   imageName: {{ .Values.appName }}
   tag: "latest"
   pullPolicy: IfNotPresent
@@ -13,19 +13,19 @@ service:
   port: 80
 
 ingress:
-  enabled: true # Ingress 사용 여부
+  enabled: true
   className: "nginx"
-  annotations:  # Ingress에 필요한 어노테이션
-    kubernetes.io/ingress.class: "nginx"  # Ingress 컨트롤러 종류 지정
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
   hosts:
-    - host: {{ .Values.appName }}.{{ .Values.domain }}
+    - host: {{ .Values.appName }}.ha-ving.store
       paths:
         - path: /
           pathType: Prefix
-  tls:  # TLS/SSL 설정
+  tls:
     - secretName: {{ .Values.appName }}-ingress
       hosts:
-        - {{ .Values.appName }}.{{ .Values.domain }}
+        - {{ .Values.appName }}.ha-ving.store
 
 resources: # 리소스 제한 및 요청
   limits:
