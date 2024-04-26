@@ -1,0 +1,36 @@
+appName: 711-community
+domain: ha-ving.store
+
+replicaCount: 3
+image:
+  repositoryHost: harbor.{{ .Values.domain }}
+  imageName: {{ .Values.appName }}
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true # Ingress 사용 여부
+  className: "nginx"
+  annotations:  # Ingress에 필요한 어노테이션
+    kubernetes.io/ingress.class: "nginx"  # Ingress 컨트롤러 종류 지정
+  hosts:
+    - host: {{ .Values.appName }}.{{ .Values.domain }}
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:  # TLS/SSL 설정
+    - secretName: {{ .Values.appName }}-ingress
+      hosts:
+        - {{ .Values.appName }}.{{ .Values.domain }}
+
+resources: # 리소스 제한 및 요청
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
