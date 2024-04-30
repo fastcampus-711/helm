@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: harbor.ha-ving.store/docker/711-community
-  tag: 8889895950
+  tag: latest
   pullPolicy: Always
 
 containerPort: 80
